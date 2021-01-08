@@ -1,0 +1,90 @@
+
+<form class="form-inline" [formGroup] = "searchBugForm">
+ 
+  <div class="form-group">
+    <input formControlName="title" type="text" class="form-control" id="titleInput" placeholder="Search Title">
+  </div>
+  <div class="form-group"> 
+    <select formControlName="priority" class="form-control" id="priorityInput" placeholder="Select">
+        <option value="" >Search Priority Empty</option>
+        <option value="1">Minor</option>
+        <option value="2">Major</option>
+        <option value="3">Critical</option>
+    </select>
+  </div>
+  <div class="form-group"> 
+  <select formControlName="reporter" class="form-control" id="reporterInput" placeholder="Select">
+      <option value="" >Search Reporter Empty</option>
+      <option >QA</option>
+      <option >PO</option>
+      <option >DEV</option>
+  </select>
+  </div>
+  <div class="form-group">
+  <select formControlName="status" class="form-control" id="statusInput">
+      <option value="" >Search Status Empty</option>
+      <option>Ready for testing</option>
+      <option>Done</option>
+      <option>Rejected</option>
+  </select>
+  </div>
+  <div>
+    <button type="submit" class="btn btn-primary" 
+        (click)="searchBug()">Submit</button>
+  </div>
+</form>
+
+
+
+
+<body ng-app>
+  <table class="table table-bordered">  
+    <thead class="thead-dark">
+         
+      <tr>
+        <th scope="col">
+          <button class="btn btn-light" (click)="sortTable('title')">Title</button>
+        </th>
+        <th scope="col">          
+          <button class="btn btn-light" (click)="sortTable('priority')">Priority</button>
+        </th>
+        <th scope="col">
+          <button class="btn btn-light" (click)="sortTable('reporter')">Reporter</button>
+        </th>
+        <th scope="col">
+          <button class="btn btn-light" (click)="sortTable('createdAt')">Date Created</button>
+        </th>
+        <th scope="col">
+          <button class="btn btn-light" (click)="sortTable('status')">Status</button>
+        </th>
+        <th colspan="2" scope="col">
+        </th>
+        
+      </tr>
+    </thead>
+
+
+    <tbody>
+      <tr *ngFor="let data of datas;" >
+
+        <td>{{data.title}}</td>
+        <td>{{data.priority}}</td>
+        <td>{{data.reporter}}</td>
+        <td>{{data.createdAt}}</td>
+        <td>{{data.status}}</td>
+        <td><button class="btn btn-primary" (click)="editButtonClick(data.id,data.title)">Edit</button></td>
+        <td><button class="btn btn-danger" (click)="deleteBug(data.id)">Delete</button></td>
+      </tr> 
+
+    </tbody>
+
+  </table>
+ 
+  <nav aria-label="Page navigation example" >
+    <ul class="pagination justify-content-center">
+      <li class="page-item"><a (click)="changePage(-1)"  class="page-link"><b>&laquo;</b></a></li>
+      <li class="page-item"><a (click)="changePage(1)"  class="page-link"><b>&raquo;</b></a></li>
+    </ul>
+  </nav>
+
+</body>
